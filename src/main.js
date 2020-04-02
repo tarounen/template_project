@@ -21,6 +21,7 @@ Vue.config.productionTip = false;
 Vue.config.devtools = false;
 
 /* Bind firebase to your Vue instance */
+Vue.prototype.$firebase = firebase;
 Vue.prototype.$firestore = firebase.firestore();
 Vue.prototype.$auth = firebase.auth();
 
@@ -30,10 +31,13 @@ firebase.auth().onAuthStateChanged(function(user){
 	if (!app){
 		/* eslint-disable no-new */
 		app = new Vue({
-			vuetify,
+			el: '#app',
 			router,
 			store,
-			render: h => h(App)
-		}).$mount('#app');
+			vuetify,
+			components: { App },
+			render: h => h(App),
+			template: '<App/>',
+		});
 	}
 });

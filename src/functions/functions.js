@@ -46,8 +46,10 @@ Vue.mixin({
 
 		/* SESSIONS*/
 
-		startSession(){
+		startSession(userId){
 			this.$session.start();
+			this.$session.set("userId",userId);
+			this.$router.replace('/');
 		},
 
 		endSession(){
@@ -60,7 +62,6 @@ Vue.mixin({
 
 
 		goHome(){
-			this.clearSession();
 			this.$router.replace({name: "Home"}).catch();
 		},
 
