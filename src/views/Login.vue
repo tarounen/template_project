@@ -24,11 +24,10 @@
 													<img src="@/assets/google-logo.png" alt="google" >
 												</v-btn>
 
-												<v-btn class="mx-2" fab dark color="twitter">
+												<v-btn class="mx-2" fab dark color="twitter" @click="loginSocial('twitter.com')">
 													<v-icon>$twitter</v-icon>
 												</v-btn>
 										</v-row>
-										
 										<v-row no-gutter align="center" >
 											<v-col cols="5">
 												<v-divider fill-height/>
@@ -73,7 +72,20 @@
 						</ValidationObserver>
 					</v-col>
 				</v-row>
+				<v-dialog v-model="displayDialog" persistent max-width="400">
+					
+				<v-card>
+					<v-card-title class="headline">Email adress already in use</v-card-title>
+					<v-card-text>The email address of the selected account is already in use from {{formatProvider}} account. </v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn color="darken-1" text @click="resetDialog">Cancel</v-btn>
+						<v-btn color="green darken-1" dark @click="linkAccounts">Link Accounts</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-dialog>
 			</v-container>
+
 		</v-content>
 	</v-app>
 </template>
@@ -92,14 +104,19 @@ export default {
 	mounted(){
 	},
 	computed: {
+		formatProvider(){
+			return (this.provider.length > 0)?this.provider[0].toUpperCase() +  this.provider.slice(1).replace('.com',''):'';
+		}
 	},
 	data: () => ({
-		displaySnackbar: false,
 		loading: false,
 		loginModel : {
 			username: '',
 			password: '',
 		},
+		provider: '',
+		pendingCred: '',
+		displayDialog: false,
 		displayForm: false,
 	}),
 	methods: {
@@ -130,8 +147,8 @@ export default {
 					return new firebase.auth.FacebookAuthProvider();
 				case "google.com":
 					return new firebase.auth.GoogleAuthProvider();
-				case "google.com":
-					return new firebase.auth.GoogleAuthProvider();
+				case "twitter.com":
+					return new firebase.auth.TwitterAuthProvider();
 				default:
 					return null;
 			}
@@ -143,6 +160,7 @@ export default {
 			firebase.auth().signInWithPopup(provider).
 			then(result=>{
 				var token = result.credential.accessToken;
+
 				var user = result.user.providerData[0];
 				console.log(user);
 
@@ -162,9 +180,17 @@ export default {
 			})
 			.catch(error=>{
 				if (error.code === 'auth/account-exists-with-different-credential') {
+					console.error(error);
+
 					var pendingCred = error.credential;
 					var email = error.email;
-					//handle error and alert user here
+
+					firebase.auth().fetchSignInMethodsForEmail(email).then(methods=> {
+						var provider = this.getProviderForProviderId(methods[0]);
+						this.provider = provider;
+						this.pendingCred = pendingCred;
+						this.displayDialog = true;
+					});
 				}
 				else{
 					console.error(error);
@@ -172,6 +198,15 @@ export default {
 				}
 			});
 
+		},
+		linkAccounts(){
+			firebase.auth().signInWithPopup(this.provider).then(result=> {
+				result.user.linkWithCredential(this.pendingCred).then(usercred=> {
+					this.$root.$emit('showSnackBar',"success","Login Successfull");
+					this.resetDialog();
+					this.startSession(result.user.email);
+				});
+			});
 		},
 		addNewUser(userRef,user){
 			var batch = this.$firestore.batch();
@@ -202,6 +237,11 @@ export default {
 		displayError(errorMessage){
 			this.$root.$emit('showSnackBar',"secondary",errorMessage);
 			this.loading = false;
+		},
+		resetDialog(){
+			this.provider = '';
+			this.pendingCred = '';
+			this.displayDialog = false;
 		}
 	}
 
