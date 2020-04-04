@@ -55,3 +55,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 * [Vuetifyjs](https://vuetifyjs.com/)
 * [Vue](https://vuejs.org/index.html/)
+* [Parallax Theme](https://github.com/vuetifyjs/vuetify/tree/master/packages/docs/src/themes/parallax-starter/)

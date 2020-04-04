@@ -4,7 +4,7 @@
 			<section id="hero">
 				<v-row no-gutters>
 					<v-img
-						:max-height="'calc(75vh - ' + $vuetify.application.top + 'px)'"
+						:max-height="'calc(70vh - ' + $vuetify.application.top + 'px)'"
 						src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80"
 					>
 						<v-theme-provider dark>
@@ -23,7 +23,7 @@
 											:class="[$vuetify.breakpoint.smAndDown ? 'display-3': 'display-4']"
 											class="font-weight-black"
 										>
-											Title
+											Terms of Service
 										</span>
 									</v-col>
 								</v-row>
@@ -36,17 +36,7 @@
 			<section id="details">
 				<div class="py-6"></div>
 
-				<v-container class="text-center">
-					<h2 class="display-2 font-weight-bold mb-3">ABOUT</h2>
-
-					<v-responsive
-						class="mx-auto mb-8"
-						width="56"
-					>
-						<v-divider class="mb-1"></v-divider>
-
-						<v-divider></v-divider>
-					</v-responsive>
+				<v-container  class="text-left">
 
 					<v-responsive
 						class="mx-auto title font-weight-light mb-8"
@@ -60,60 +50,24 @@
 						</p>
 					</v-responsive>
 
-					<div></div>
+				</v-container>
 
+				<v-container class="pt-0 text-center margin-fix">
 					<v-btn
 						color="grey"
-						href="/login"
+						href="/"
 						outlined
 						large
 					>
 						<span class="grey--text text--darken-1 font-weight-bold">
-							Get Started
+							Homepage
 						</span>
 					</v-btn>
 				</v-container>
 
 				<div class="py-12"></div>
 			</section>
-
-			<!-- <section
-				id="features"
-				class="grey lighten-3"
-			>
-				<div class="py-12"></div>
 			
-				<v-container class="text-center">
-					<h2 class="display-2 font-weight-bold mb-3">VUETIFY FEATURES</h2>
-			
-					<v-responsive
-						class="mx-auto mb-12"
-						width="56"
-					>
-						<v-divider class="mb-1"></v-divider>
-			
-						<v-divider></v-divider>
-					</v-responsive>
-			
-					<v-row>
-						
-					</v-row>
-				</v-container>
-			
-				<div class="py-12"></div>
-			</section> -->
-
-			<!-- <section id="stats">
-				<v-parallax
-					:height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-					src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-				>
-					<v-container fill-height>
-						<v-row class="mx-auto">
-						</v-row>
-					</v-container>
-				</v-parallax>
-			</section> -->
 		</v-content>
 		<app-footer color="footer" />
 	</v-app>
@@ -147,5 +101,7 @@
 </script>
 
 <style  scoped>
-
+	.margin-fix{
+		margin-top: -2%;
+	}
 </style>

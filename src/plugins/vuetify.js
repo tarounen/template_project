@@ -10,12 +10,13 @@ export default new Vuetify({
 		themes: {
 			light: {
 				background: "#fafafa",
-				primary: "#ce2923",
+				primary: "#292929",
+				/*primary: "#ce2923",*/
 				secondary: "#424242",
 				hover: "#ffffff",
 				accent: '#ebedef',
 				error: "#cc0000",
-				error_message: "#424242",
+				error_message: "#cc0000",
 				info: "#2196F3",
 				success: "#4CAF50",
 				warning: "#FFC107",
@@ -25,6 +26,7 @@ export default new Vuetify({
 				twitter: "#5bc0de",
 				google: "#d9534f",
 				microsoft: "#495057",
+				footer: "#292929"
 			},
 		},
 	},

@@ -1,12 +1,24 @@
 <template>
-	<v-footer absolute height="50" class="white pa-3 app--footer">
-		<span class="caption mr-1">
-			Developed by <a href="https://github.com/tarounen" target="_blank">Tarounen</a>
-		</span>
-		<v-spacer></v-spacer>
-		<!-- <span class="caption"> copyright &copy; {{ new Date().getFullYear() }}</span> -->
-		<!-- debugging -->
-		<!-- <v-btn  @click="logout" >logout</v-btn> -->
-		<!-- /debuggin -->
+	<v-footer absolute height="75" class="pa-3 app--footer justify-center " :color="color">
+		<div class="text-center">
+			<div class="font-weight-light white--text text--lighten-1">
+				&copy; {{ (new Date()).getFullYear() }} <a href="https://github.com/tarounen" target="_blank" class="font-weight-bold white--text">Tarounen</a>. All rights reserved.
+			</div>
+			<div class="font-weight-light text--lighten-1">
+				<a href="/terms" class="white--text" style="text-decoration: none;">Terms of Service</a>
+			</div>
+		</div>
 	</v-footer>
 </template>
+
+<script>
+
+	export default {
+		props: {
+			color:{
+				type: String,
+				default: "primary"
+			}
+		},
+	};
+</script>

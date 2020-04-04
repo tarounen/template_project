@@ -28,7 +28,7 @@
 			y: 'top',
 			x: null,
 			mode: '',
-			timeout: 3000,
+			timeout: 1500,
 			color: '',
 			text: '',
 			snackbar: false

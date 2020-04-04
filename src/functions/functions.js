@@ -35,21 +35,30 @@ Vue.mixin({
 
 		logout: function(){
 			this.$auth.signOut()
-      .then( () => {
-        this.endSession();
-        this.$router.replace('/login');
-      })
-      .catch(error => {
-        this.$router.replace('/');
-      });
+			.then( () => {
+				this.endSession();
+				this.$router.replace('/');
+			})
+			.catch(error => {
+				this.$router.replace('/user');
+			});
 		},
 
 		/* SESSIONS*/
 
 		startSession(userId){
-			this.$session.start();
-			this.$session.set("userId",userId);
-			this.$router.replace('/');
+			//checks if admin
+			this.$firestore.collection("admins").doc(this.$auth.currentUser.uid).get()
+			.then(docSnapshot=>{
+				this.$session.start();
+				this.$session.set("userId",userId);
+				this.$session.set("isAdmin",false);
+				if (docSnapshot.exists){
+					this.$session.set("isAdmin",true);
+				}
+				this.$router.replace('/user');
+			})
+			.catch(error=>{console.error(error);});
 		},
 
 		endSession(){
@@ -71,7 +80,7 @@ Vue.mixin({
 
 		checkRedirect(){
 			
-		},
+		},		
 
 		/* /SESSIONS*/
 	}
