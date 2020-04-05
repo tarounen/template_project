@@ -11,10 +11,9 @@
 					<!-- Go to top -->
 					<app-fab/>
 					<!-- App Footer -->
-					<app-footer class="app--footer"/>
+					<app-footer style="botton:unset;" class="app--footer"/>
 				</v-content>
 				<snackbar/> 
-				
 			</v-app>
 		</template>
 		<template v-else>

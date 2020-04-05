@@ -1,6 +1,6 @@
 <template>
 	<v-fab-transition>
-		<v-btn fab="fab" small dark="dark" fixed="fixed" bottom="bottom" right="right" color="primary" v-scroll="onScroll" v-show="fab" @click="toTop">
+		<v-btn fab small fixed bottom right color="white" v-scroll="onScroll" v-show="fab" @click="toTop">
 			<v-icon>keyboard_arrow_up</v-icon>
 		</v-btn>
 	</v-fab-transition>
