@@ -39,6 +39,7 @@ export default new Vuetify({
 			'twitter': 'fab fa-twitter',
 			'microsoft': 'fab fa-microsoft',
 			'home': 'fas fa-home',
+			'heart': 'fas fa-heart',
 		},
 	}
 });
